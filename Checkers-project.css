@@ -70,7 +70,7 @@ h3{
     justify-content: space-between;
     margin-bottom: 2rem;
 }
-#player-turn-conatainer{
+#player-turn-container{
      display: flex;
     justify-content: center;
     height: 3rem;
