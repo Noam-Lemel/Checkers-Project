@@ -9,6 +9,7 @@ body{
     height: 70vh;
     outline: 5px solid black;
     margin: 20px auto;
+    border-radius: 4px;
     display: grid;
     grid-template-columns: repeat(8,1fr);
     grid-template-rows: repeat(8,1fr);
