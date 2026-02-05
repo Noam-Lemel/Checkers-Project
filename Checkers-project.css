@@ -1,0 +1,85 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    background: burlywood;
+}
+#board{
+    width: 70vh;
+    height: 70vh;
+    outline: 5px solid black;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    grid-template-rows: repeat(8,1fr);
+    
+}
+.square{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.selected{
+    border: 5px solid gold;
+}
+.piece{
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    outline: 3px solid black;
+}
+.king{
+      outline: 3px solid gold;
+}
+.black{
+    background: black;
+}
+.white{
+    background: white;
+}
+.red{
+      background: red;
+}
+.modal-container{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(192,192,192,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal{
+    width: 30%;
+    min-height: 30%;
+    background: white;
+    padding: 10px;
+    border: 5px solid black;
+}
+.hidden{
+    display: none;
+}
+h3{
+    text-align: center;
+    color: purple;
+}
+#button-container{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+#player-turn-conatainer{
+     display: flex;
+    justify-content: center;
+    height: 3rem;
+}
+#turn-message{
+    height: 50%;
+}
+.game-container{
+    width: 60vw;
+    height:90vh;
+    margin: 20px auto;
+}
