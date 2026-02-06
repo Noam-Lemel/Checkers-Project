@@ -95,10 +95,10 @@ const handleMove=(fromID,toID)=>{
                     finishTurn(fromID)
                     isLock=false;
                     },500)
-                },500)
-                    }else
+                },500)}
+                    else{
                     turnOnlyKingsMove++;
-                    finishTurn(toID);}
+                    finishTurn(toID);}}
             else if(result===false)
                    resetSelectedSquare();
             else{
