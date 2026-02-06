@@ -183,6 +183,8 @@ const isValidCapture=(fromID,toID)=>{
     const to=parseInt(toID);
     const fromSquare=document.getElementById(fromID);
     const toSquare=document.getElementById(toID);
+    if(fromSquare.children.length===0)
+        return false;
     const playerColor=fromSquare.children[0].classList.contains('white')?'white':'red';
     const enemyColor=playerColor==='white'?'red':'white';
     const dif=to-from;
@@ -246,6 +248,7 @@ const isValidKingPath=(fromID,toID)=>{
     let enemyPiece=null;
      for(let current=parseInt(fromID)+step;(current!==parseInt(toID))&&(enemyPieceCounter<2);current+=step){
         const pathSquare=document.getElementById(current);
+        if(!pathSquare) return false;
         if(pathSquare.children.length>0)
             if(pathSquare.children[0].classList.contains(isWhiteTurn?"white":"red"))
                 return false;
