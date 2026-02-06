@@ -109,7 +109,6 @@ const handleMove=(fromID,toID)=>{
                         selectedSquare=newsSlectedSquare;
                         selectedSquare.classList.add('selected');
                         isMultipleCapture=true;
-                         console.log(isMultipleCapture);
                     }else{
                     isMultipleCapture=false;
                     finishTurn(toID);
