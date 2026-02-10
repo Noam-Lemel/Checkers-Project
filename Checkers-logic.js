@@ -45,7 +45,6 @@ const handleMove=(fromID,toID,isKing,isTargetSquareEmpty,playerColor,enemyID,ene
             else{
                     capture(fromID,toID,result);
                     if(isKingCanCaptureFromCurrentSpot(toID,enemyColor)){
-                        resetSelectedSquare();
                         setSelectedSquare(toID);
                         isMultipleCapture=true;
                     }else{
@@ -79,7 +78,6 @@ const handleMove=(fromID,toID,isKing,isTargetSquareEmpty,playerColor,enemyID,ene
      else if(isValidCapture(fromID,toID,isTargetSquareEmpty,playerColor,enemyColor)){
         capture(fromID,toID,enemyID);
         if(isManCanCaptureFromCurrentSpot(toID,enemyColor)){
-            resetSelectedSquare();
             setSelectedSquare(toID);
             isMultipleCapture=true;
         }

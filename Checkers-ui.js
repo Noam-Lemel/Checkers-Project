@@ -145,6 +145,8 @@ const resetSelectedSquare=()=>{
     }   
 }
 const setSelectedSquare=(id)=>{
+     if(selectedSquare)
+         selectedSquare.classList.remove('selected');
     const newsSlectedSquare=document.getElementById(id);
             selectedSquare=newsSlectedSquare;
             selectedSquare.classList.add('selected');
