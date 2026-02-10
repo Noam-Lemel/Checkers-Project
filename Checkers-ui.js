@@ -20,6 +20,7 @@ const resetUiVar=()=>{
     draw=false;
     selectedSquare=null;
     modalMission='';
+    UpdateTurn()
 }
 //Create board
 const CreateBoard=()=>{ 
@@ -261,8 +262,8 @@ const startGame=()=>{
     board.innerHTML='';
     CreateBoard();
     CreatePieces();
-    resetUiVar();
     resetLogicVar();
+    resetUiVar();
 }
 window.addEventListener('load',startGame)
 buttonRestart.addEventListener('click',startGame);
