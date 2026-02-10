@@ -203,7 +203,6 @@ const getPlayerStatus=(color)=>{
             let optionId=parseInt(square.id);
             optionId+=option;
             if(optionId<1||optionId>64) continue;
-            console.log(optionId);
             if(isOneStepValid(parseInt(square.id),optionId,isKing,color)){
                 let optionSquare=document.getElementById(optionId);
             if(optionSquare.children.length===0)
