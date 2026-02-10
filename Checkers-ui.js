@@ -1,6 +1,7 @@
 //DOM Objects
 const board=document.getElementById('board');
 const buttonResign=document.getElementById('button-resign');
+const buttonRestart=document.getElementById('button-restart');
 const buttonDraw=document.getElementById('button-draw');
 const modalContainer=document.getElementById('modal-container');
 const modal=document.getElementById('modal');
@@ -14,7 +15,14 @@ let victory=false;
 let draw=false;
 let selectedSquare=null;
 let modalMission='';
+const resetUiVar=()=>{
+    victory=false;
+    draw=false;
+    selectedSquare=null;
+    modalMission='';
+}
 //Create board
+const CreateBoard=()=>{ 
     let squareCounter=1;
     for(let row=0;row<8;row++){
       for(let col=0;col<8;col++){
@@ -82,9 +90,10 @@ let modalMission='';
             pathData.push(squareInfo);
         }
         return pathData;
-    }
+    }}
 }//Pieces Injection
-    const squares=document.querySelectorAll('#board div');
+const CreatePieces=()=>{
+        const squares=document.querySelectorAll('#board div');
     for(square of squares){
         const piece=document.createElement('div');
         if(parseInt(square.id)<=24&&square.classList.contains('black')){
@@ -106,7 +115,7 @@ let modalMission='';
                 selectedSquare=event.target.parentElement;}}
             })
         }
-    }
+    }}
     const getSquareStatus=(id)=>{
         const square=document.getElementById(id);
         if(!square) return 'out';
@@ -188,7 +197,10 @@ const getPlayerStatus=(color)=>{
                       playerStatus.canMove=true;}
             }
             for(let option of options){
-            let optionId=parseInt(square.id)+option;
+            let optionId=parseInt(square.id);
+            optionId+=option;
+            if(optionId<1||optionId>64) continue;
+            console.log(optionId);
             if(isOneStepValid(parseInt(square.id),optionId,isKing,color)){
                 let optionSquare=document.getElementById(optionId);
             if(optionSquare.children.length===0)
@@ -207,7 +219,6 @@ const burnPieces=(squaresId)=>{
 }
 const endGame=(victory,draw)=>{
  isLock=true;
- const playerStatus=getPlayerStatus(getIsWhiteTurn()?'red':'white');
  yesButton.classList.add('hidden');
  noButton.innerHTML='close';
   modalContainer.classList.remove('hidden');
@@ -246,3 +257,13 @@ yesButton.addEventListener('click',(event)=>{
     else if(modalMission==='draw')
         endGame(false,true);
 })
+const startGame=()=>{
+    board.innerHTML='';
+    CreateBoard();
+    CreatePieces();
+    resetUiVar();
+    resetLogicVar();
+}
+window.addEventListener('load',startGame)
+buttonRestart.addEventListener('click',startGame);
+

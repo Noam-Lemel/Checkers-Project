@@ -11,6 +11,13 @@ const switchTurn=()=>{
 const getIsWhiteTurn=()=>{
     return isWhiteTurn;
 }
+const resetLogicVar=()=>{
+    isLock=false;
+    turnCount=1;
+    turnOnlyKingsMove=0;
+    isMultipleCapture=false;
+    isWhiteTurn=(turnCount%2===0);
+}
 //turn flow
 const handleMove=(fromID,toID,isKing,isTargetSquareEmpty,playerColor,enemyID,enemyColor,pathId,pathData)=>{
     //the king's logic
@@ -219,7 +226,7 @@ const isOneStepValid=(fromID,toID,isKing,color)=>{
     const toCol=((parseInt(toID)-1)%8);
     const colDif=fromCol>toCol?fromCol-toCol:toCol-fromCol;
     const dif=toID-fromID;
-    const isRightDirection=(color==='white')?dif<0:dif>0
+    const isRightDirection=(color==='white')?dif>0:dif<0;
     if(colDif!==1) return false;
     if(!isKing&&!isRightDirection) return false;
     return true;
