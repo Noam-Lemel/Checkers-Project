@@ -12,12 +12,20 @@ const turnmessage=document.getElementById('turn-message');
 turnmessage.innerHTML=`${getIsWhiteTurn()?'white':'red'} turn`;
 //Global var
 let victory=false;
+let isMultipleCapture=false;
+const turnOnMultipleCapture=()=>{
+isMultipleCapture=true;
+}
+const turnOffMultipleCapture=()=>{
+isMultipleCapture=false;
+}
 let draw=false;
 let selectedSquare=null;
 let modalMission='';
 const resetUiVar=()=>{
     victory=false;
     draw=false;
+    isMultipleCapture=false;
     selectedSquare=null;
     modalMission='';
     UpdateTurn()
@@ -52,12 +60,10 @@ const CreateBoard=()=>{
                 if(isKing){
                     pathId=getPathId(selectedSquare.id,square.id);
                 if(!pathId){
-                    resetSelectedSquare();
                     return;
                 }
                 pathData=getPathData(pathId,playerColor);
                 if(!pathData){
-                    resetSelectedSquare();
                     return;
                 }}
                 if(enemyID){
@@ -65,6 +71,8 @@ const CreateBoard=()=>{
                 if(enemySquare&&enemySquare.children.length>0)
                 enemyColor=enemySquare.children[0].classList.contains('white')?'white':'red';
                 }
+                else
+                    enemyColor=playerColor==='white'?'red':'white';
                 if(isMultipleCapture){
                     if(isKing){
                         if(typeof(isValidKingPath(pathId,pathData))==='number')
@@ -76,7 +84,7 @@ const CreateBoard=()=>{
                      handleMove(selectedSquare.id,square.id,isKing,isTargetSquareEmpty,playerColor,enemyID,enemyColor,pathId,pathData);
         })
         board.appendChild(square);
-        squareCounter++;
+        squareCounter++;}}
     }
     const getPathData=(pathId,playerColor)=>{
         const pathData=[];
@@ -91,8 +99,8 @@ const CreateBoard=()=>{
             pathData.push(squareInfo);
         }
         return pathData;
-    }}
-}//Pieces Injection
+    }
+//Pieces Injection
 const CreatePieces=()=>{
         const squares=document.querySelectorAll('#board div');
     for(square of squares){
@@ -109,6 +117,8 @@ const CreatePieces=()=>{
             piece.addEventListener('click',(event)=>{
                 event.stopPropagation()
                 if(isLock)
+                    return;
+                if(isMultipleCapture)
                     return;
                 if(selectedSquare===null){
                 if((getIsWhiteTurn() && event.target.classList.contains('white'))||(!getIsWhiteTurn() && event.target.classList.contains('red'))){
@@ -141,7 +151,8 @@ const capture=(fromID,toID,enemyID=null)=>{
 const resetSelectedSquare=()=>{
     if(selectedSquare){
          selectedSquare.classList.remove('selected');
-            selectedSquare=null;
+            if(!isMultipleCapture)
+                selectedSquare=null;
     }   
 }
 const setSelectedSquare=(id)=>{

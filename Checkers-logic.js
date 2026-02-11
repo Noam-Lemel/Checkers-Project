@@ -2,7 +2,6 @@
 let isLock=false;
 let turnCount=1;
 let turnOnlyKingsMove=0;
-let isMultipleCapture=false;
 let isWhiteTurn=(turnCount%2===0);
 const switchTurn=()=>{
      turnCount++;
@@ -15,7 +14,6 @@ const resetLogicVar=()=>{
     isLock=false;
     turnCount=1;
     turnOnlyKingsMove=0;
-    isMultipleCapture=false;
     isWhiteTurn=(turnCount%2===0);
 }
 //turn flow
@@ -46,9 +44,9 @@ const handleMove=(fromID,toID,isKing,isTargetSquareEmpty,playerColor,enemyID,ene
                     capture(fromID,toID,result);
                     if(isKingCanCaptureFromCurrentSpot(toID,enemyColor)){
                         setSelectedSquare(toID);
-                        isMultipleCapture=true;
+                        turnOnMultipleCapture()
                     }else{
-                    isMultipleCapture=false;
+                    turnOffMultipleCapture();
                     finishTurn(toID);
                     turnOnlyKingsMove=0;
                 }}
@@ -79,10 +77,10 @@ const handleMove=(fromID,toID,isKing,isTargetSquareEmpty,playerColor,enemyID,ene
         capture(fromID,toID,enemyID);
         if(isManCanCaptureFromCurrentSpot(toID,enemyColor)){
             setSelectedSquare(toID);
-            isMultipleCapture=true;
+            turnOnMultipleCapture();
         }
        else{
-            isMultipleCapture=false;
+            turnOffMultipleCapture()
             turnOnlyKingsMove=0;
             finishTurn(toID);}
      }
@@ -200,7 +198,7 @@ const isKingCanCaptureFromCurrentSpot=(fromID,enemyColor)=>{
         let nextId=idNumber+option;
         let fromCol=parseInt((idNumber-1)%8);
         let foundPiece=false;
-        while((nextId>0)&&(nextId<=64)){
+        while((nextId>=1)&&(nextId<=64)){
             let toCol=parseInt((nextId-1)%8);
             let colDif=(fromCol>toCol)?(fromCol-toCol):(toCol-fromCol);
             if(colDif!==1)break;
